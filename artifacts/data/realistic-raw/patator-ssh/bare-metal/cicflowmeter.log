@@ -1,0 +1,25 @@
+/data/bare-metal/patator/patator-t10-p/
+pcapfix 1.1.7 (c) 2012-2021 Robert Krause
+
+[*] Reading from file: /data/bare-metal/patator/patator-t10-p//dump.pcap
+[*] Writing to file: /data/bare-metal/patator/patator-t10-p//dump.pcap
+[*] File size: 5921862 bytes.
+[+] This is a PCAP file.
+[*] Analyzing Global Header...
+[+] The global pcap header seems to be fine!
+[*] Analyzing packets...
+[*] Progress:  20.00 %
+[*] Progress:  40.00 %
+[*] Progress:  60.00 %
+[*] Progress:  80.01 %
+[*] Progress: 100.00 %
+[*] Your pcap file looks proper. Nothing to fix!
+
+35399 frames, 6 out of order
+cic.cs.unb.ca.ifm.Cmd You select: /data/bare-metal/patator/patator-t10-p//dump-fix.pcap
+cic.cs.unb.ca.ifm.Cmd Out folder: /data/bare-metal/patator/patator-t10-p/
+cic.cs.unb.ca.ifm.Cmd CICFlowMeter received 1 pcap file
+Working on... dump-fix.pcap
+dump-fix.pcap is done. total 681 flows 
+Packet stats: Total=35399,Valid=35399,Discarded=0
+-------------------------------------------------------------------------------

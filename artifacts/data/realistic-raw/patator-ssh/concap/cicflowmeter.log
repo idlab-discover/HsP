@@ -1,0 +1,27 @@
+stdout:
+pcapfix 1.1.7 (c) 2012-2021 Robert Krause
+
+[*] Reading from file: /data/input/patator-t10-p.pcap
+[*] Writing to file: /data/input/patator-t10-p.pcap
+[*] File size: 5602636 bytes.
+[+] This is a PCAP file.
+[*] Analyzing Global Header...
+[+] The global pcap header seems to be fine!
+[*] Analyzing packets...
+[*] Progress:  20.00 %
+[*] Progress:  40.01 %
+[*] Progress:  60.00 %
+[*] Progress:  80.00 %
+[*] Progress: 100.00 %
+[*] Your pcap file looks proper. Nothing to fix!
+
+31506 frames, 12 out of order
+cic.cs.unb.ca.ifm.Cmd You select: /data/input/patator-t10-p.pcap
+cic.cs.unb.ca.ifm.Cmd Out folder: /data/output/patator-t10-p/
+cic.cs.unb.ca.ifm.Cmd CICFlowMeter received 1 pcap file
+Working on... patator-t10-p.pcap
+patator-t10-p.pcap -> 1 flows patator-t10-p.pcap -> 2 flows patator-t10-p.pcap -> 3 flows patator-t10-p.pcap -> 4 flows patator-t10-p.pcap -> 5 flows patator-t10-p.pcap -> 6 flows patator-t10-p.pcap -> 7 flows patator-t10-p.pcap -> 8 flows patator-t10-p.pcap -> 9 flows patator-t10-p.pcap -> 10 flows patator-t10-p.pcap -> 11 flows patator-t10-p.pcap -> 12 flows patator-t10-p.pcap -> 13 flows patator-t10-p.pcap -> 14 flows patator-t10-p.pcap -> 15 flows patator-t10-p.pcap -> 16 flows patator-t10-p.pcap -> 17 flows patator-t10-p.pcap -> 18 flows patator-t10-p.pcap -> 19 flows patator-t10-p.pcap -> 20 flows patator-t10-p.pcap -> 21 flows patator-t10-p.pcap -> 22 flows patator-t10-p.pcap -> 23 flows patator-t10-p.pcap -> 24 flows patator-t10-p.pcap -> 25 flows patator-t10-p.pcap -> 26 flows patator-t10-p.pcap is done. total 681 flows 
+Packet stats: Total=31506,Valid=31506,Discarded=0
+-------------------------------------------------------------------------------
+stderr:
+

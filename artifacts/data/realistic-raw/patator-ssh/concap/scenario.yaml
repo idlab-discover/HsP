@@ -1,0 +1,44 @@
+uuid: d2aa3bdc-55cb-41cc-90b1-6929f20b5bb9
+name: patator-t10-p
+startTime: 2024-08-18T16:22:47.591454874+02:00
+stopTime: 2024-08-18T16:39:26.706672307+02:00
+attacker:
+  name: patator
+  image: ghcr.io/idlab-discover/concap/patator:ubuntu20
+  atkCommand: python3 patator.py ssh_login host=$TARGET_IP user=FILE0 password=FILE1
+    0=/usr/share/wordlists/top-usernames-shortlist.txt 1=/usr/share/wordlists/2023-200_most_used_passwords.txt
+    persistent=1 --rate-limit=0 --threads=10 -x ignore:mesg='Authentication failed'
+    2>&1 | tee -a /proc/1/fd/1
+  atkTime: ""
+  cpuRequest: 1000m
+  cpuLimit: ""
+  memRequest: 500Mi
+  memLimit: ""
+target:
+  name: openssh-server
+  image: ghcr.io/idlab-discover/concap/openssh-server:password-20.04
+  filter: ((dst host $ATTACKER_IP and src host $TARGET_IP) or (dst host $TARGET_IP
+    and src host $ATTACKER_IP)) and not arp
+  cpuRequest: 100m
+  cpuLimit: ""
+  memRequest: 500Mi
+  memLimit: ""
+network:
+  bandwidth: 100mbit
+  queueSize: 100ms
+  limit: "10000"
+  delay: 0ms
+  jitter: 0ms
+  distribution: normal
+  loss: 0%
+  corrupt: 0%
+  duplicate: 0%
+  seed: "0"
+labels:
+  category: bruteforce-ssh
+  label: "1"
+  scenario: patator_T10_P
+  subcategory: patator
+deployment:
+  attacker: 192.168.249.102
+  target: 192.168.19.181

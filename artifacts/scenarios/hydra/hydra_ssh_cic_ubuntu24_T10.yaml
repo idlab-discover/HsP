@@ -1,0 +1,27 @@
+attacker:
+  name: hydra
+  image: ghcr.io/idlab-discover/concap/hydra:ubuntu24
+  atkCommand: hydra -L /usr/share/wordlists/top-usernames-shortlist.txt -P /usr/share/wordlists/2023-200_most_used_passwords.txt ssh://$TARGET_IP -t 10
+  cpuRequest: 1500m
+  memRequest: 500Mi
+target:
+  name: openssh-server
+  image: ghcr.io/idlab-discover/concap/openssh-server:cic-1.0.0
+  cpuRequest: 500m
+  memRequest: 500Mi
+network:
+  bandwidth: 100mbit
+  queueSize: 100ms
+  limit: 10000
+  delay: 0ms
+  jitter: 0ms
+  distribution: normal
+  loss: 0%
+  corrupt: 0%
+  duplicate: 0%
+  seed: 0
+labels:
+  label: 1
+  category: bruteforce-ssh
+  subcategory: hydra
+  scenario: hydra_ssh_cic_ubuntu24_T10
