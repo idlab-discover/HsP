@@ -1,38 +1,43 @@
 # HsP
 
-This repository is being prepared as the artifact repository for the ACM AsiaCCS 2026 paper:
+This repository contains the public artifact bundle for the ACM AsiaCCS 2026
+paper:
 
 `"What is the Problem Space?" Defining Host-space Adversarial Perturbations against Network Intrusion Detection Systems`
 
-The current goal is not to mirror every file from the broader research workspace. The goal is to provide a clean, paper-focused repository containing:
+The repository is intentionally narrow. It focuses on the SSH host-space
+perturbation artifact set used to study how attacker-side execution changes can
+shift network-flow behavior and downstream IDS performance.
 
-- the SSH host-space perturbation scenarios used in the paper
-- the processed flow artifacts used for the HsP experiments
-- the latest benchmark, generalisation, and defense notebooks/results used for the paper narrative
-- the real-world `patator` comparison artifacts used to support the host-space claims
+## Scope
 
-## Status
+The public release includes:
 
-This is an in-progress curation pass for the eventual public repository at:
+- scenario definitions for the SSH HsP families discussed in the paper
+- processed parquet datasets used for the curated HsP comparisons
+- exported ML evaluation outputs for baseline, generalisation, and defense runs
+- cleaned real-world comparison artifacts for the bare-metal versus ConCap SSH
+  assessment
 
-- <https://github.com/idlab-discover/HsP>
+The public release does not attempt to mirror the full internal research
+workspace. In particular, it does not redistribute:
 
-The repository is intentionally being kept narrower than the earlier anonymous workspace:
-
-- included: experimental artifacts directly tied to the HsP paper
-- excluded for now: literature-review material, large reviewer-only recovery bundles, and broader ConCap/SaTML material not required to understand the HsP claims
+- third-party benchmark base datasets
+- broader ConCap or SaTML workspaces
+- reviewer-specific intermediate material
+- raw packet captures and unsanitized flow exports from the real-world runs
 
 ## Repository Layout
 
 ```text
 artifacts/
   data/
-    concap-clean/              Cleaned ConCap flow datasets for SSH HsP families
-    realistic-clean/           Cleaned bare-metal vs ConCap realism datasets
-    realistic-raw/patator-ssh/ Real-world `patator` comparison captures and flow exports
+    concap-clean/              Processed ConCap flow datasets for SSH HsP families
+    realistic-clean/           Processed bare-metal vs ConCap comparison datasets
+    realistic-raw/             Placeholder note for omitted raw capture material
   ml-evaluation/
     notebooks/                Curated notebooks for baseline, defense, and generalisation
-    results/                  Exported result tables and confusion matrices
+    results/                  Exported result tables and figures
   scenarios/
     hydra/                    Alternative SSH tool scenarios
     medusa/                   Alternative SSH tool scenarios
@@ -40,45 +45,49 @@ artifacts/
     patator-network/          Network-condition perturbation scenarios
     patator-versions/         Tool/environment variation scenarios
 docs/
-  artifact-map.md             Mapping from paper claims/sections to repository artifacts
+  artifact-map.md             Mapping from paper topics to repository artifacts
+  reproducibility.md          How to audit and reuse the public bundle
+  results-summary.md          High-level summary of the included experiment bundles
+scripts/
+  check_artifacts.py          Lightweight release-integrity check
 ```
 
-## Included In This First Curated Pass
+## Included Artifact Families
 
-- Core SSH HsP scenarios:
-  - `artifacts/scenarios/patator`
-  - `artifacts/scenarios/hydra`
-  - `artifacts/scenarios/medusa`
-  - `artifacts/scenarios/patator-network`
-  - `artifacts/scenarios/patator-versions`
-- Processed ConCap datasets:
-  - `artifacts/data/concap-clean/*.parquet`
-- Real-world comparison artifacts:
-  - `artifacts/data/realistic-clean/*`
-  - `artifacts/data/realistic-raw/patator-ssh/*`
-- Latest ML evaluation notebooks and exported results for:
-  - `CICIDS2017`
-  - `CSE-CIC-IDS2018`
-  - baseline
-  - generalisation
-  - defense
+- `artifacts/scenarios/`
+  - 47 YAML scenario definitions across `patator`, `hydra`, `medusa`,
+    `patator-network`, and `patator-versions`
+- `artifacts/data/concap-clean/`
+  - 9 processed parquet datasets covering the SSH HsP families
+- `artifacts/data/realistic-clean/`
+  - 4 processed parquet datasets for the bare-metal versus ConCap comparison
+- `artifacts/ml-evaluation/notebooks/`
+  - 6 curated notebooks spanning `CICIDS2017` and `CSE-CIC-IDS2018`
+- `artifacts/ml-evaluation/results/`
+  - 6 exported result bundles
+  - 78 per-model CSV result files, plus confusion matrices and serialized model
+    outputs
 
-## Not Included Yet
+Representative files:
 
-- the broader reviewer-revision workspace under `_reviewer_b/`
-- broader non-SSH HsP additions prepared after acceptance
-- legacy duplicate notebooks under the older `ML/` tree
-- benchmark source datasets themselves
-- the full ConCap engine source tree
+- `artifacts/scenarios/patator/patator_ssh_cic_T10_P.yaml`
+- `artifacts/data/concap-clean/patator-ssh-cic.parquet`
+- `artifacts/data/realistic-clean/bare-patator-cic.parquet`
+- `artifacts/ml-evaluation/results/cicids2017-latest/defense/support_vector_machine_results.csv`
 
-Those omissions are intentional for now. The immediate target is a clean HsP paper-artifacts repository, not a monorepo for every adjacent project.
+## Reproducibility Notes
 
-## Benchmark Data
+This repository is a curated artifact release, not a one-command rebuild of the
+entire experimental workspace.
 
-This repository includes processed HsP-specific artifacts, but it does not currently redistribute the underlying benchmark datasets. The notebooks and exported result files therefore serve as the main paper-facing evidence, while the benchmark base data should be obtained from its original sources.
+- The exported CSV files under `artifacts/ml-evaluation/results/` are the main
+  paper-facing evidence in this public bundle.
+- The notebooks document the evaluation workflow, but rerunning them requires
+  separately obtaining the underlying benchmark datasets from their original
+  sources.
+- The cleaned parquet files in `artifacts/data/` can be inspected directly
+  without access to the original packet captures.
 
-## Provenance
-
-The files currently in this repository were curated from the larger local research workspace used for the HsP and ConCap papers. This repository is meant to become the public-facing, paper-specific subset.
-
-See [docs/artifact-map.md](docs/artifact-map.md) for the current mapping from paper content to included files.
+See [docs/reproducibility.md](docs/reproducibility.md) for the public audit and
+reuse guidance, and [docs/artifact-map.md](docs/artifact-map.md) for the
+artifact-to-topic mapping.

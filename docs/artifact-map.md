@@ -1,50 +1,54 @@
 # Artifact Map
 
-This note maps the main HsP paper claims to the currently included repository artifacts.
+This note maps the main public artifact families in this repository to the HsP
+questions they support.
 
-It is a curation document, not a claim that every possible intermediate file from the original workspace belongs in the public release.
+It is intentionally narrower than the full internal research workspace. The aim
+is to help readers locate the relevant scenarios, processed datasets, notebooks,
+and exported outputs that accompany the paper.
 
-## 1. Core HsP Setup: `patator` SSH Variants
+## 1. Core SSH HsP Setup
 
-These files define the main SSH brute-force host-space perturbation families used throughout the paper.
+These files capture the main `patator` SSH host-space perturbation families used
+throughout the paper.
 
-- Scenarios:
+- Scenario definitions:
   - `artifacts/scenarios/patator/`
-- Cleaned flow artifacts:
+- Processed datasets:
   - `artifacts/data/concap-clean/patator-ssh-cic.parquet`
   - `artifacts/data/concap-clean/patator-ssh-cic-cns22.parquet`
   - `artifacts/data/concap-clean/patator-ssh-cic-nodelay.parquet`
   - `artifacts/data/concap-clean/patator-ssh-cic-nodelay-cns22.parquet`
   - `artifacts/data/concap-clean/patator-ssh-giovanni.parquet`
 
-These are the main artifacts behind the `persistent=0` versus `persistent=1` HsP story.
-
 ## 2. Additional SSH HsP Families
 
-These files support the paper's broader point that HsP are not restricted to one exact command string.
+These files illustrate that HsP effects are not tied to one exact tool or one
+exact command string.
 
 - Alternative SSH tool scenarios:
   - `artifacts/scenarios/hydra/`
   - `artifacts/scenarios/medusa/`
-- Corresponding cleaned flow artifacts:
+- Processed datasets:
   - `artifacts/data/concap-clean/hydra-ssh-cic.parquet`
   - `artifacts/data/concap-clean/medusa-ssh-cic.parquet`
 
 ## 3. Network and Environment Variations
 
-These files support the paper's discussion of perturbations that arise from network or environment changes rather than only command-flag changes.
+These files cover perturbations induced by network conditions or by execution
+environment changes.
 
-- Network-condition scenarios:
+- Scenario definitions:
   - `artifacts/scenarios/patator-network/`
-- Environment/version scenarios:
   - `artifacts/scenarios/patator-versions/`
-- Corresponding cleaned flow artifacts:
+- Processed datasets:
   - `artifacts/data/concap-clean/patator-network-ssh-cic.parquet`
   - `artifacts/data/concap-clean/patator-versions-ssh-cic.parquet`
 
-## 4. Benchmark-Side ML Evidence
+## 4. Benchmark-Side Evaluation Bundles
 
-These files correspond to the latest curated notebooks and exported result tables for the benchmark experiments.
+These directories contain the curated notebooks and exported results for the
+public benchmark-side evaluation bundle.
 
 ### Notebooks
 
@@ -58,7 +62,7 @@ These files correspond to the latest curated notebooks and exported result table
   - `artifacts/ml-evaluation/notebooks/defense/cicids2017-latest.ipynb`
   - `artifacts/ml-evaluation/notebooks/defense/csecicids2018-latest.ipynb`
 
-### Exported Results
+### Exported Result Trees
 
 - `artifacts/ml-evaluation/results/cicids2017-latest/baseline/`
 - `artifacts/ml-evaluation/results/cicids2017-latest/generalisation/`
@@ -67,58 +71,32 @@ These files correspond to the latest curated notebooks and exported result table
 - `artifacts/ml-evaluation/results/csecicids2018-latest/generalisation/`
 - `artifacts/ml-evaluation/results/csecicids2018-latest/defense/`
 
-The CSV files in these directories are the most important public-facing artifacts because they expose the per-model outcomes without requiring the original workspace.
+The CSV files in these directories expose per-model outputs directly and are the
+most convenient public entry point for result inspection.
 
-## 5. Real-World `patator` Comparison
+## 5. Real-World SSH Comparison
 
-These files support the paper's real-world network evidence for the SSH HsP claims.
+These files support the bare-metal versus ConCap comparison used to study
+whether the SSH HsP behavior persists outside the benchmark-side datasets.
 
-### Cleaned Comparison Artifacts
+- Processed comparison datasets:
+  - `artifacts/data/realistic-clean/bare-patator-cic.parquet`
+  - `artifacts/data/realistic-clean/concap-patator-cic.parquet`
+- Additional realism cross-check datasets:
+  - `artifacts/data/realistic-clean/bare-nmap-cic.parquet`
+  - `artifacts/data/realistic-clean/concap-nmap-cic.parquet`
 
-- `artifacts/data/realistic-clean/bare-patator-cic.parquet`
-- `artifacts/data/realistic-clean/concap-patator-cic.parquet`
+The public release intentionally keeps the cleaned comparison artifacts and does
+not redistribute raw packet captures or unsanitized flow exports.
 
-### Raw Comparison Artifacts
+## 6. What This Repository Does Not Cover
 
-- Bare-metal:
-  - `artifacts/data/realistic-raw/patator-ssh/bare-metal/`
-- ConCap:
-  - `artifacts/data/realistic-raw/patator-ssh/concap/`
+This repository is an HsP artifact bundle. It is not a full release of every
+adjacent research asset.
 
-These directories currently include:
+Excluded from this public pass:
 
-- `dump.pcap`
-- `cicflowmeter.csv`
-- `argus.csv`
-- lightweight logs/configuration files
-
-## 6. Realism Cross-Check Material
-
-The repository currently also includes the cleaned `nmap` realism comparison artifacts:
-
-- `artifacts/data/realistic-clean/bare-nmap-cic.parquet`
-- `artifacts/data/realistic-clean/concap-nmap-cic.parquet`
-
-These are not central to the HsP paper's SSH story, but they are small and useful as context for the realism claim.
-
-## 7. Deliberate Omissions
-
-The following areas were intentionally not brought into this first pass:
-
-- `_reviewer_b/`
-  - useful internally, but too revision-specific and too large for a first clean public release
-- the older `ML/` tree
-  - likely valuable for provenance, but not necessary in the first curated artifact bundle
-- the broader ConCap workspace and SaTML artifact set
-  - should be handled separately or linked out to `idlab-discover/ConCap`
-- literature-review material
-  - explicitly out of scope for the public HsP repository
-
-## 8. Likely Next Curation Decisions
-
-The next useful decisions for this repository are:
-
-1. Whether to add a compact top-level `results-summary.md` with headline numbers extracted from the CSV files.
-2. Whether to include selected figures only, or all exported confusion matrices and PDFs.
-3. Whether to add a lightweight reproduction script that checks file presence and points users to the relevant notebooks.
-4. Whether the post-acceptance non-SSH HsP material should live here or remain in a separate follow-up branch/repository.
+- third-party benchmark base datasets
+- broader ConCap and SaTML workspaces
+- reviewer-specific intermediate bundles
+- raw packet captures and unsanitized real-world flow exports
